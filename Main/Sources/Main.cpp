@@ -2,83 +2,20 @@
 #include <ctime>
 #include <string>
 
-class Weapon {
-  public:
-    std::string name = "gun";
-    int ammo;
-    int damage;
-};
-
-class Enemy {
-  public:
-    std::string name = "monster";
-    int hp = 10;
-    int atk = 0;
-    int atkType = 0;
-    
-    Enemy() {
-
-    }
-
-    Enemy(std::string name, int hp, int atk, int atkType) {
-      this->name = name;
-      this->hp = hp;
-      this->atk = atk;
-      this->atkType = atkType;
-    }
-
-    int inflictDamage(int damage, int atkType) {
-
-      return damage;
-    }
-
-    void takeDamage(int damage, int hp) {
-
-      this->hp -= damage;
-    }
-    
-};
-
-class Character {
-  public:
-    int numberOfHearts = 6;
-    int numberOfMaxHearts = 10;
-    
-    int numberOfBombs = 5;
-    int numberOfAmmo = 0;
-
-    Weapon weapon;
-};
-
-void drawTopScreenUI(Character character);
-void drawScreen();
-void drawBottomScreenUI(Enemy currentEnemy);
-
-Enemy pickEnemy(Enemy currentEnemy);
-void startFight(Character character, Enemy currentEnemy);
-void fightTurnPlayer(Character character);
-void fightTurnCurrentEnemy(Enemy currentEnemy);
-
-void useBomb();
-void useKnife();
-void useWeapon();
-void reloadWeapon();
-
-void winFight();
-
-void loseFight();
+#include "Main.h"
+#include "Character.h"
+#include "Enemy.h"
+#include "Weapon.h"
 
 std::string currentMessageLine1;
 std::string currentMessageLine2;
 std::string currentMessageLine3;
 
-
 int main() {
-  
   bool isRunning = true;
-  Enemy currentEnemy;
-  Character character;
-  Weapon weapon;
+  Corax::Enemy currentEnemy;
+  Corax::Character character;
+  Corax::Weapon weapon;
   
   srand(time(NULL));
 
@@ -102,7 +39,7 @@ int main() {
   return 0;
 }
 
-void drawBottomScreenUI(Enemy enemy1) {
+void drawBottomScreenUI(Corax::Enemy enemy1) {
   
   std::cout << "________________________________________________________________________________\n";
   std::cout << "||                                                                            ||\n";
@@ -113,7 +50,7 @@ void drawBottomScreenUI(Enemy enemy1) {
   std::cout << "                                                                                \n";              
 }
 
-void drawTopScreenUI(Character character) {
+void drawTopScreenUI(Corax::Character character) {
 
   char lifebar[] = "1234567890";
 
@@ -140,7 +77,7 @@ void drawScreen () {
 
 }
 
-Enemy pickEnemy(Enemy currentEnemy) {
+Corax::Enemy pickEnemy(Corax::Enemy currentEnemy) {
   
   int enemyType;  
 
@@ -167,7 +104,7 @@ Enemy pickEnemy(Enemy currentEnemy) {
   return currentEnemy;
 }
 
-void startFight(Character character, Enemy currentEnemy) {
+void startFight(Corax::Character character, Corax::Enemy currentEnemy) {
 
   while (character.numberOfHearts > 0 && currentEnemy.hp > 0) {
 
@@ -189,7 +126,7 @@ void startFight(Character character, Enemy currentEnemy) {
 
 }
 
-void fightTurnPlayer(Character character) {
+void fightTurnPlayer(Corax::Character character) {
   
   int optionSelect;
   currentMessageLine1 = "Press 1 to attack\n";
@@ -201,7 +138,7 @@ void fightTurnPlayer(Character character) {
 
 }
 
-void fightTurnCurrentEnemy(Enemy currentEnemy) {
+void fightTurnCurrentEnemy(Corax::Enemy currentEnemy) {
   
   currentMessageLine1 = "The " + currentEnemy.name + " attacks!\n";
 
@@ -215,6 +152,3 @@ void loseFight() {
   currentMessageLine1 = "You Lost!";
   bool isRunning = false;
 };
-
-
-
