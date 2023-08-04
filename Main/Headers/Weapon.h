@@ -1,3 +1,6 @@
+#ifndef __CORAX_WEAPON_H_
+#define __CORAX_WEAPON_H_
+
 #include <string>
 
 namespace Corax {
@@ -11,3 +14,5 @@ namespace Corax {
 	};
 
 }
+
+#endif
