@@ -19,15 +19,17 @@ int main() {
   
   srand(time(NULL));
 
-    while(isRunning) {
-        
-    currentEnemy = pickEnemy(currentEnemy);
+    gameStart(character, message);
 
-    std::cout << currentEnemy.name;
+    while(isRunning) {
+
+    drawScreen(character, message);
+        
+    currentEnemy = pickEnemy(currentEnemy, message);
     
     drawScreen(character, message);
 
-    startFight(character, currentEnemy);
+    startFight(character, currentEnemy, message);
 
   }
 
@@ -37,21 +39,21 @@ int main() {
 
 void drawBottomScreenUI(Corax::Message message) {
   
-  std::cout << "________________________________________________________________________________\n";
-  std::cout << "||                                                                            ||\n";
-  std::cout << "                            " << message.line1 << "                                                    \n";
-  std::cout << "                            " << message.line2 << "                                                    \n";
-  std::cout << "                            " << message.line3 << "                                    \n";
-  std::cout << "                                                                                \n";
-  std::cout << "                                                                                \n";              
+  message.updateLines(message.line1, message.line2,message.line3);
+  std::cout << "_________________________________________________________________________________\n";
+  std::cout << "||                                                                             ||\n";
+  std::cout << "||" << message.line1 << "||\n";
+  std::cout << "||" << message.line2 << "||\n";
+  std::cout << "||" << message.line3 << "||\n";
+  std::cout << "||                                                                             ||\n";
+  std::cout << "||_____________________________________________________________________________||\n";              
 }
 
 void drawTopScreenUI(Corax::Character character) {
-
   char lifebar[] = "1234567890";
 
-  for (int i = 0; i < character.numberOfMaxHearts; i++) {
-    if (i < character.numberOfHearts) {
+  for (int i = 0; i < (character.maxHp)/100; i++) {
+    if (i < character.currentHp/100) {
       lifebar[i] = 'O';
     } else {
       lifebar[i] = '-';
@@ -73,7 +75,7 @@ void drawPortraits () {
 
 }
 
-Corax::Enemy pickEnemy(Corax::Enemy currentEnemy) {
+Corax::Enemy pickEnemy(Corax::Enemy currentEnemy, Corax::Message message) {
   
   int enemyType;  
 
@@ -81,7 +83,8 @@ Corax::Enemy pickEnemy(Corax::Enemy currentEnemy) {
 
   switch (enemyType) {
     case 0: 
-      currentEnemy.name = "Hellhound"; //progressively gets stronger
+      currentEnemy.name = "lonza";
+       //progressively gets stronger
       break;
     case 1: 
       currentEnemy.name = "Phantom"; //can be missed
@@ -96,33 +99,33 @@ Corax::Enemy pickEnemy(Corax::Enemy currentEnemy) {
       currentEnemy.name = "Snake"; //hits with strength 3x every third time 
       break;
   }
-
+  
   return currentEnemy;
 }
 
 void startFight(Corax::Character character, Corax::Enemy currentEnemy, Corax::Message message) {
   
-  while (character.numberOfHearts > 0 && currentEnemy.hp > 0) {
+  while (character.currentHp > 0 && currentEnemy.hp > 0) {
 
-    fightTurnPlayer(character, message, currentEnemy);
+    fightTurnPlayer(character, currentEnemy, message);
 
     if (currentEnemy.hp > 0) {
       
-      fightTurnCurrentEnemy(currentEnemy);
+      fightTurnCurrentEnemy(character, currentEnemy, message);
     }
 
   }
 
-  if (character.numberOfHearts <= 0) {
-    loseFight();
+  if (character.currentHp <= 0) {
+    loseFight(message);
   } else {
-    winFight();
+    winFight(message);
   }
   
 
 }
 
-void fightTurnPlayer(Corax::Character character, Corax::Message message, Corax::Enemy currentEnemy) {
+void fightTurnPlayer(Corax::Character character, Corax::Enemy currentEnemy, Corax::Message message) {
   
   int optionSelect;
   message.line1 = "Press 1 to attack and 2 to launch a bomb\n";
@@ -146,9 +149,9 @@ void fightTurnPlayer(Corax::Character character, Corax::Message message, Corax::
 
 }
 
-void fightTurnCurrentEnemy(Corax::Enemy currentEnemy, Corax::Message message, Corax::Character character) {
+void fightTurnCurrentEnemy(Corax::Character character, Corax::Enemy currentEnemy, Corax::Message message) {
   
-  currentEnemy.inflictDamage(character, message);
+  
   message.line1 = "The " + currentEnemy.name + " attacks!\n";
 
 }
@@ -166,4 +169,14 @@ void drawScreen(Corax::Character character, Corax::Message message) {
   drawTopScreenUI(character);
   drawPortraits();
   drawBottomScreenUI(message);
+}
+
+void gameStart(Corax::Character character, Corax::Message message) {
+  char temp = '\0';
+  do {
+    drawScreen(character, message);
+    std::cout << "Press any button to start";
+    std::cin >> temp;
+  } while (temp == '\0');
+
 }

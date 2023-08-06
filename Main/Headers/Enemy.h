@@ -3,6 +3,7 @@
 
 #include <string>
 #include "Character.h"
+#include "message.h"
 
 namespace Corax {
 
@@ -11,12 +12,11 @@ namespace Corax {
       std::string name = "monster";
       int hp = 10;
       int atk = 0;
-      int atkType = 0;
       
       Enemy();
       Enemy(std::string name, int hp, int atk, int atkType);
-      void inflictDamage(Corax::Character character, Corax::Message message);
-      void takeDamage(int damage, int hp);
+      
+      void performAttack();
   };
 
 }
