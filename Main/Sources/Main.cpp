@@ -25,11 +25,7 @@ int main() {
 
     std::cout << currentEnemy.name;
     
-    drawTopScreenUI(character);
-
-    drawScreen();
-
-    drawBottomScreenUI(currentEnemy, message);
+    drawScreen(character, message);
 
     startFight(character, currentEnemy);
 
@@ -39,7 +35,7 @@ int main() {
   return 0;
 }
 
-void drawBottomScreenUI(Corax::Enemy currentEnemy, Corax::Message message) {
+void drawBottomScreenUI(Corax::Message message) {
   
   std::cout << "________________________________________________________________________________\n";
   std::cout << "||                                                                            ||\n";
@@ -68,7 +64,7 @@ void drawTopScreenUI(Corax::Character character) {
 
 }
 
-void drawScreen () {
+void drawPortraits () {
   
   for (int i = 0; i < 12; i++) {
     std::cout << "                                                                                \n";
@@ -150,8 +146,9 @@ void fightTurnPlayer(Corax::Character character, Corax::Message message, Corax::
 
 }
 
-void fightTurnCurrentEnemy(Corax::Enemy currentEnemy, Corax::Message message) {
+void fightTurnCurrentEnemy(Corax::Enemy currentEnemy, Corax::Message message, Corax::Character character) {
   
+  currentEnemy.inflictDamage(character, message);
   message.line1 = "The " + currentEnemy.name + " attacks!\n";
 
 }
@@ -164,3 +161,9 @@ void loseFight(Corax::Message message) {
   message.line1 = "You Lost!";
   bool isRunning = false;
 };
+
+void drawScreen(Corax::Character character, Corax::Message message) {
+  drawTopScreenUI(character);
+  drawPortraits();
+  drawBottomScreenUI(message);
+}

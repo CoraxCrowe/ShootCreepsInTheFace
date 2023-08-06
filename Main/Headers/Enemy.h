@@ -2,6 +2,7 @@
 #define __CORAX_ENEMY_H_
 
 #include <string>
+#include "Character.h"
 
 namespace Corax {
 
@@ -14,7 +15,7 @@ namespace Corax {
       
       Enemy();
       Enemy(std::string name, int hp, int atk, int atkType);
-      int inflictDamage(int damage, int atkType);
+      void inflictDamage(Corax::Character character, Corax::Message message);
       void takeDamage(int damage, int hp);
   };
 

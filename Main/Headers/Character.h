@@ -8,7 +8,11 @@ namespace Corax {
 
 	class Character {
 	public:
-		int numberOfHearts = 6;
+
+    int hp = 100;
+    int maxhp = 100;
+
+		int numberOfHearts = 10;
 		int numberOfMaxHearts = 10;
 		
 		int numberOfBombs = 5;
