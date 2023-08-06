@@ -6,13 +6,13 @@
 #include "Character.h"
 #include "Enemy.h"
 #include "Weapon.h"
+#include "Message.h"
 
-std::string currentMessageLine1;
-std::string currentMessageLine2;
-std::string currentMessageLine3;
+
 
 int main() {
   bool isRunning = true;
+  Corax::Message message;
   Corax::Enemy currentEnemy;
   Corax::Character character;
   Corax::Weapon weapon;
@@ -29,7 +29,7 @@ int main() {
 
     drawScreen();
 
-    drawBottomScreenUI(currentEnemy);
+    drawBottomScreenUI(currentEnemy, message);
 
     startFight(character, currentEnemy);
 
@@ -39,13 +39,13 @@ int main() {
   return 0;
 }
 
-void drawBottomScreenUI(Corax::Enemy enemy1) {
+void drawBottomScreenUI(Corax::Enemy currentEnemy, Corax::Message message) {
   
   std::cout << "________________________________________________________________________________\n";
   std::cout << "||                                                                            ||\n";
-  std::cout << "                            " << currentMessageLine1 << "                                                    \n";
-  std::cout << "                            " << currentMessageLine2 << "                                                    \n";
-  std::cout << "                            " << currentMessageLine3 << "                                    \n";
+  std::cout << "                            " << message.line1 << "                                                    \n";
+  std::cout << "                            " << message.line2 << "                                                    \n";
+  std::cout << "                            " << message.line3 << "                                    \n";
   std::cout << "                                                                                \n";
   std::cout << "                                                                                \n";              
 }
@@ -104,11 +104,11 @@ Corax::Enemy pickEnemy(Corax::Enemy currentEnemy) {
   return currentEnemy;
 }
 
-void startFight(Corax::Character character, Corax::Enemy currentEnemy) {
-
+void startFight(Corax::Character character, Corax::Enemy currentEnemy, Corax::Message message) {
+  
   while (character.numberOfHearts > 0 && currentEnemy.hp > 0) {
 
-    fightTurnPlayer(character);
+    fightTurnPlayer(character, message, currentEnemy);
 
     if (currentEnemy.hp > 0) {
       
@@ -126,29 +126,41 @@ void startFight(Corax::Character character, Corax::Enemy currentEnemy) {
 
 }
 
-void fightTurnPlayer(Corax::Character character) {
+void fightTurnPlayer(Corax::Character character, Corax::Message message, Corax::Enemy currentEnemy) {
   
   int optionSelect;
-  currentMessageLine1 = "Press 1 to attack\n";
+  message.line1 = "Press 1 to attack and 2 to launch a bomb\n";
+  message.line2 = "\n";
+  message.line3 = "\n";
+
   std::cin >> optionSelect;
 
   if (optionSelect == 1) {
-      currentMessageLine1 = "The warrior attacks\n";
+      currentEnemy.hp -= character.weapon.damage;
+      character.weapon.ammo -= 1;
+      message.line1 = "The warrior attacks\n";
+      message.line2 = "Dealing " + std::to_string(character.weapon.damage) + " damage";
+      
+      if (currentEnemy.hp > 0) {
+        message.line3 = "The foe prepares an attack.";
+      } else {
+        message.line3 = "The foe is vanquished.";
+      }
   }
 
 }
 
-void fightTurnCurrentEnemy(Corax::Enemy currentEnemy) {
+void fightTurnCurrentEnemy(Corax::Enemy currentEnemy, Corax::Message message) {
   
-  currentMessageLine1 = "The " + currentEnemy.name + " attacks!\n";
+  message.line1 = "The " + currentEnemy.name + " attacks!\n";
 
 }
 
-void winFight() {
-  currentMessageLine1 = "You won!";
+void winFight(Corax::Message message) {
+  message.line1 = "You won!";
 }
 
-void loseFight() {
-  currentMessageLine1 = "You Lost!";
+void loseFight(Corax::Message message) {
+  message.line1 = "You Lost!";
   bool isRunning = false;
 };
