@@ -28,14 +28,15 @@ int main() {
     gameStart();    
 
     while(isRunning) {
-
-    drawScreen(character, message);
         
     pickEnemy(currentEnemy, message);
-    
     drawScreen(character, message);
+    pressToAdvance();
+    
 
     startFight(character, currentEnemy, message);
+    drawScreen(character, message);
+    pressToAdvance();
 
   }
 
@@ -98,13 +99,14 @@ void pickEnemy(Corax::Enemy currentEnemy, Corax::Message message) {
       currentEnemy = shewolf;
       break;
   }
+  std::cout << "picked " << currentEnemy.name;
 
   currentEnemy.hp += int(currentEnemy.numberOfEnemiesEncountered * 1.2);
   currentEnemy.atk += int(currentEnemy.numberOfEnemiesEncountered * 0.2);
   
-  message.line1 = currentEnemy.pickLine1;
-  message.line2 = currentEnemy.pickLine2;
-  message.line3 = currentEnemy.pickLine3;
+  message.setStrings(currentEnemy.pickLine1,
+      currentEnemy.pickLine2,
+      currentEnemy.pickLine3);
 }
 
 void startFight(Corax::Character character, Corax::Enemy currentEnemy, Corax::Message message) {
@@ -176,15 +178,18 @@ void drawScreen(Corax::Character character, Corax::Message message) {
 }
 
 void gameStart() {
-  char temp = '\0';
+  
   pressToAdvance();
 
 }
 
 void pressToAdvance () {
+  std::cout << "Func called..";
   char temp = '\0';
   do {
     std::cout << "Press any button to advance";
     std::cin >> temp;
   } while (temp == '\0');
+
+  std::cout << "Advancing..";
 }

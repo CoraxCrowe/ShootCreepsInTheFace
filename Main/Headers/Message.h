@@ -14,6 +14,13 @@ namespace Corax {
       int lengthLine2 = std::size(line2);
       int lengthLine3 = std::size(line3);
 
+      void setStrings (std::string string1, std::string string2, std::string string3) {
+        std::string line1 = string1;
+        std::string line2 = string2;
+        std::string line3 = string3;
+      }
+      
+
       std::string addSpaces (std::string line, int lengthLine) {
         lengthLine = std::size(line);
         std::string tempLine;
