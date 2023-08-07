@@ -3,7 +3,7 @@
 
 #include <string>
 #include "Character.h"
-#include "message.h"
+#include "Message.h"
 
 namespace Corax {
 
@@ -14,9 +14,13 @@ namespace Corax {
       int atk = 0;
       
       Enemy();
-      Enemy(std::string name, int hp, int atk, int atkType);
+      Enemy(std::string name, int hp, int atk);
       
-      void performAttack();
+      int performAttack(Corax::Message message) {
+        
+        
+        return 0;
+      };
   };
 
 }
