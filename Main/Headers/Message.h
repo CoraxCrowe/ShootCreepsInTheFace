@@ -9,6 +9,7 @@ namespace Corax {
       std::string line1 = "Midway through the pathway of our years...";
       std::string line2 = "I found myself inside a forest dark...";
       std::string line3 = "Like man who from the righteous way steers... ";
+      
       int lengthLine1 = std::size(line1);
       int lengthLine2 = std::size(line2);
       int lengthLine3 = std::size(line3);

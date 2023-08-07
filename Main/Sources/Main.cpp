@@ -8,6 +8,10 @@
 #include "Weapon.h"
 #include "Message.h"
 
+#include "Lunze.h"
+#include "Lion.h"
+#include "Shewolf.h"
+
 
 
 int main() {
@@ -19,13 +23,15 @@ int main() {
   
   srand(time(NULL));
 
-    gameStart(character, message);
+    drawScreen(character, message);
+
+    gameStart();    
 
     while(isRunning) {
 
     drawScreen(character, message);
         
-    currentEnemy = pickEnemy(currentEnemy, message);
+    pickEnemy(currentEnemy, message);
     
     drawScreen(character, message);
 
@@ -75,32 +81,30 @@ void drawPortraits () {
 
 }
 
-Corax::Enemy pickEnemy(Corax::Enemy currentEnemy, Corax::Message message) {
+void pickEnemy(Corax::Enemy currentEnemy, Corax::Message message) {
   
-  int enemyType;  
-
-  enemyType = 0; //rand() % 5;
+  int enemyType;
+  
+  enemyType = rand() % 3;
 
   switch (enemyType) {
     case 0: 
-      currentEnemy.name = "lonza";
-       //progressively gets stronger
+      currentEnemy = lunze;
       break;
     case 1: 
-      currentEnemy.name = "Phantom"; //can be missed
+      currentEnemy = lion;
       break;
     case 2: 
-      currentEnemy.name = "Swarm of Bats"; //attacks 0-3 times
-      break;
-    case 3: 
-      currentEnemy.name = "Slime"; //regens life on hit
-      break;
-    case 4:
-      currentEnemy.name = "Snake"; //hits with strength 3x every third time 
+      currentEnemy = shewolf;
       break;
   }
+
+  currentEnemy.hp += int(currentEnemy.numberOfEnemiesEncountered * 1.2);
+  currentEnemy.atk += int(currentEnemy.numberOfEnemiesEncountered * 0.2);
   
-  return currentEnemy;
+  message.line1 = currentEnemy.pickLine1;
+  message.line2 = currentEnemy.pickLine2;
+  message.line3 = currentEnemy.pickLine3;
 }
 
 void startFight(Corax::Character character, Corax::Enemy currentEnemy, Corax::Message message) {
@@ -171,12 +175,16 @@ void drawScreen(Corax::Character character, Corax::Message message) {
   drawBottomScreenUI(message);
 }
 
-void gameStart(Corax::Character character, Corax::Message message) {
+void gameStart() {
+  char temp = '\0';
+  pressToAdvance();
+
+}
+
+void pressToAdvance () {
   char temp = '\0';
   do {
-    drawScreen(character, message);
-    std::cout << "Press any button to start";
+    std::cout << "Press any button to advance";
     std::cin >> temp;
   } while (temp == '\0');
-
 }

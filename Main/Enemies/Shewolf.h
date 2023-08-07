@@ -3,16 +3,21 @@
 #include "Enemy.h"
 #include "Message.h"
 
-class Lupa : public Corax::Enemy {
+class Shewolf : public Corax::Enemy {
 
   public:
-
     std::string name = "she-wolf";
+    
+    std::string pickLine1 = "A " + name + " appears, filled with craves.";
+    std::string pickLine2 = "Or so she appears, meagre as she looks.";
+    std::string pickLine3 = "And many people sent she to their graves.";
+    
+    int maxhp = 10;
     int hp = 10;
     int atk = 5;
 
     int performAttack(Corax::Message message) {
-      int dmg = atk * (rand() % 4 + 8)/10;
+      int dmg = int(atk * (rand() % 4 + 8)/10);
 
       hp += dmg/5;
 
@@ -22,6 +27,8 @@ class Lupa : public Corax::Enemy {
 
       return dmg;
     }
+
+    
 };
 
-Lupa lupa;
+Shewolf shewolf;

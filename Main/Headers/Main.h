@@ -8,13 +8,19 @@
 #include "Weapon.h"
 #include "Message.h"
 
-void gameStart(Corax::Character character, Corax::Message message);
+#include "Lunze.h"
+#include "Lion.h"
+#include "Shewolf.h"
+
+
+void gameStart();
 void drawTopScreenUI(Corax::Character character);
 void drawPortraits();
 void drawBottomScreenUI(Corax::Message message);
 void drawScreen(Corax::Character character, Corax::Message message);
 
-Corax::Enemy pickEnemy(Corax::Enemy currentEnemy, Corax::Message message);
+void pressToAdvance();
+void pickEnemy(Corax::Enemy currentEnemy, Corax::Message message);
 void startFight(Corax::Character character, Corax::Enemy currentEnemy, Corax::Message message);
 void fightTurnPlayer(Corax::Character character, Corax::Enemy currentEnemy, Corax::Message message);
 void fightTurnCurrentEnemy(Corax::Character character, Corax::Enemy currentEnemy, Corax::Message message);
