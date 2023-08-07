@@ -20,7 +20,7 @@ void drawBottomScreenUI(Corax::Message message);
 void drawScreen(Corax::Character character, Corax::Message message);
 
 void pressToAdvance();
-void pickEnemy(Corax::Enemy currentEnemy, Corax::Message message);
+void pickEnemy(Corax::Enemy* currentEnemy, Corax::Message message);
 void startFight(Corax::Character character, Corax::Enemy currentEnemy, Corax::Message message);
 void fightTurnPlayer(Corax::Character character, Corax::Enemy currentEnemy, Corax::Message message);
 void fightTurnCurrentEnemy(Corax::Character character, Corax::Enemy currentEnemy, Corax::Message message);

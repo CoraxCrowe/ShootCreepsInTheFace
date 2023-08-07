@@ -27,19 +27,11 @@ namespace Corax {
       std::string defeatLine1 = "";
       std::string defeatLine2 = "";
       std::string defeatLine3 = "";
-
-
-
-
-      
+     
       Enemy();
       Enemy(std::string name, int hp, int atk);
       
-      int performAttack(Corax::Message message) {
-        
-        
-        return 0;
-      };
+      int performAttack(Corax::Message message);
   };
 
 }

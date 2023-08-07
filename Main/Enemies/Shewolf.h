@@ -9,25 +9,10 @@
 class Shewolf : public Corax::Enemy {
 
   public:
-    std::string name = "she-wolf";
-    
-    std::string pickLine1 = "A " + name + " appears, filled with craves.";
-    std::string pickLine2 = "Or so she appears, meagre as she looks.";
-    std::string pickLine3 = "And many people sent she to their graves.";
 
-    std::string victoryLine1 = "O fangs who devour man, o twisted foe.";
-    std::string victoryLine2 = "Go back from whence thee came in darkness hot.";
-    std::string victoryLine3 = "And never dare you impede my journey more.";
-
-    std::string defeatLine1 = "But in the end the she-wolf got the better";
-    std::string defeatLine2 = "Of me, and wounded me to sure defeat.";
-    std::string defeatLine3 = "So unfortunate have I been to have met her...";
-
-    int maxhp = 10;
-    int hp = 10;
-    int atk = 5;
-
-    int performAttack(Corax::Message message) {
+      Shewolf();
+      
+      int performAttack(Corax::Message message) {
       int dmg = int(atk * (rand() % 4 + 8)/10);
 
       hp += dmg/5;
@@ -43,6 +28,6 @@ class Shewolf : public Corax::Enemy {
     
 };
 
-Shewolf shewolf;
+//Shewolf shewolf;
 
 #endif

@@ -12,6 +12,9 @@
 #include "Lion.h"
 #include "Shewolf.h"
 
+Lunze *lunze = new Lunze();
+Lion *lion = new Lion();
+Shewolf *shewolf = new Shewolf();
 
 
 int main() {
@@ -29,14 +32,14 @@ int main() {
 
     while(isRunning) {
         
-    pickEnemy(currentEnemy, message);
+    pickEnemy(&currentEnemy, message);
     drawScreen(character, message);
     pressToAdvance();
     
 
-    startFight(character, currentEnemy, message);
-    drawScreen(character, message);
-    pressToAdvance();
+    //startFight(character, currentEnemy, message);
+    //drawScreen(character, message);
+    //pressToAdvance();
 
   }
 
@@ -82,7 +85,7 @@ void drawPortraits () {
 
 }
 
-void pickEnemy(Corax::Enemy currentEnemy, Corax::Message message) {
+void pickEnemy(Corax::Enemy* currentEnemy, Corax::Message message) {
   
   int enemyType;
   
@@ -99,14 +102,14 @@ void pickEnemy(Corax::Enemy currentEnemy, Corax::Message message) {
       currentEnemy = shewolf;
       break;
   }
-  std::cout << "picked " << currentEnemy.name;
+  std::cout << "picked " << currentEnemy->name;
 
-  currentEnemy.hp += int(currentEnemy.numberOfEnemiesEncountered * 1.2);
-  currentEnemy.atk += int(currentEnemy.numberOfEnemiesEncountered * 0.2);
+  currentEnemy->hp += int(currentEnemy->numberOfEnemiesEncountered * 1.2);
+  currentEnemy->atk += int(currentEnemy->numberOfEnemiesEncountered * 0.2);
   
-  message.setStrings(currentEnemy.pickLine1,
-      currentEnemy.pickLine2,
-      currentEnemy.pickLine3);
+  message.setStrings(currentEnemy->pickLine1,
+      currentEnemy->pickLine2,
+      currentEnemy->pickLine3);
 }
 
 void startFight(Corax::Character character, Corax::Enemy currentEnemy, Corax::Message message) {

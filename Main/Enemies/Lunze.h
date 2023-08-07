@@ -9,23 +9,8 @@
 class Lunze : public Corax::Enemy {
 
   public:
-    std::string name = "lunze";
-
-    std::string pickLine1 = "A " + name + " appears, hasty on its four paws.";
-    std::string pickLine2 = "And it is light, and dressed in spotted fur.";
-    std::string pickLine3 = "And tries to impede your way without a pause.";
-
-    std::string victoryLine1 = "The bolts of me cut through the " + name + "'s hide.";
-    std::string victoryLine2 = "Like lightning parting clouds on its way down.";
-    std::string victoryLine3 = "And stopped the dance of living gears inside.";
-
-    std::string defeatLine1 = "I could not find a way to match its haste.";
-    std::string defeatLine2 = "And so defeated, I attend my fate.";
-    std::string defeatLine3 = "Bested by the last beast I'll ever face...";
     
-    int maxhp = 10;
-    int hp = 10;
-    int atk = 5;
+    Lunze();
     
     int performAttack(Corax::Message message) {
       int temp = 0;
@@ -46,6 +31,6 @@ class Lunze : public Corax::Enemy {
   }
 };
 
-Lunze lunze;
+
 
 #endif

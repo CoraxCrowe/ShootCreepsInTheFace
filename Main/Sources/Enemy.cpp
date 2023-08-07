@@ -15,4 +15,8 @@ Corax::Enemy::Enemy(std::string name, int hp, int atk) {
 
 }
 
+int performAttack(Corax::Message message) {
+  return 0;
+}
+
 
